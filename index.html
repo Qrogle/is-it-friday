@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Is it Friday yet?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wrapper {
+      text-align: center;
+      padding: 2rem;
+      max-width: 700px;
+    }
+    h1 {
+      font-size: clamp(3rem, 8vw, 5rem);
+      margin: 0 0 1rem;
+    }
+    .answer-no {
+      color: #f87171;
+    }
+    .answer-yes {
+      color: #4ade80;
+    }
+    .sub {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .quote {
+      font-style: italic;
+      opacity: 0.9;
+      margin-bottom: 1.5rem;
+    }
+    .meme {
+      max-width: 100%;
+      border-radius: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .small {
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+    iframe {
+      width: min(100%, 560px);
+      height: 315px;
+      border: none;
+      border-radius: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1 id="answer"></h1>
+    <p class="sub" id="subtitle"></p>
+    <div id="content"></div>
+    <p class="small">Powered by your questionable life choices and a home Docker stack.</p>
+  </div>
+
+  <script>
+    // Client-side Friday detection (uses the visitor's local time)
+    const today = new Date();
+    const isFriday = today.getDay() === 5; // 0=Sunday ... 5=Friday
+
+    const answerEl = document.getElementById("answer");
+    const subtitleEl = document.getElementById("subtitle");
+    const contentEl = document.getElementById("content");
+
+    const quotes = [
+      "Almost there. Future-you is already clinking glasses.",
+      "Courage. Every day survived is 24 hours closer to Friday.",
+      "You’ve got this. Even spreadsheets can’t stop the weekend.",
+      "Hang in there. Les ancêtres ont tenu la ligne, tu peux tenir jusqu’à vendredi.",
+      "Deep breath. One more quest before the boss fight called Friday."
+    ];
+
+    function randomQuote() {
+      return quotes[Math.floor(Math.random() * quotes.length)];
+    }
+
+    if (!isFriday) {
+      // NOT FRIDAY
+      answerEl.textContent = "Nope.";
+      answerEl.classList.add("answer-no");
+      subtitleEl.textContent = "But we’re getting there. One task, one coffee at a time.";
+
+      const quoteEl = document.createElement("p");
+      quoteEl.className = "quote";
+      quoteEl.textContent = randomQuote();
+
+      const img = document.createElement("img");
+      img.className = "meme";
+      img.src = "sad-meme.jpg"; // 👉 drop your own sad meme image in the same folder
+      img.alt = "Sad meme waiting for Friday";
+
+      const hintEl = document.createElement("p");
+      hintEl.className = "small";
+      hintEl.textContent = "Tip: replace sad-meme.jpg with your favorite sad meme.";
+
+      contentEl.appendChild(quoteEl);
+      contentEl.appendChild(img);
+      contentEl.appendChild(hintEl);
+    } else {
+      // FRIDAY \o/
+      answerEl.textContent = "YES!";
+      answerEl.classList.add("answer-yes");
+      subtitleEl.textContent = "Aujourd’hui, c’est vendredi. Tes ancêtres se sont battus pour ça.";
+
+      const textEl = document.createElement("p");
+      textEl.className = "quote";
+      textEl.textContent = "Le vendredi, on est BLEU, on est MÉTAL. 🍻";
+
+      // Chicandier Friday video (YouTube embed)
+      const iframe = document.createElement("iframe");
+      iframe.src = "https://www.youtube.com/embed/4CMwM9O_ymo?autoplay=1&mute=1";
+      iframe.allow =
+        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+
+      const warnEl = document.createElement("p");
+      warnEl.className = "small";
+      warnEl.textContent = "Si ça ne se lance pas automatiquement, clique sur la vidéo : les navigateurs n’aiment pas trop l’autoplay.";
+
+      contentEl.appendChild(textEl);
+      contentEl.appendChild(iframe);
+      contentEl.appendChild(warnEl);
+    }
+  </script>
+</body>
+</html>
