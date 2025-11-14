@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   is-it-friday:
-    image: ghcr.io/Qrogle/is-it-friday:latest
+    image: ghcr.io/qrogle/is-it-friday:latest
     container_name: is-it-friday
     restart: unless-stopped
     labels:
