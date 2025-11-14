@@ -6,10 +6,13 @@ services:
     container_name: is-it-friday
     restart: unless-stopped
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.isitfriday.rule=Host(`isitfriday.qrogle.net`)"
-      - "traefik.http.routers.isitfriday.entrypoints=websecure"
-      - "traefik.http.routers.isitfriday.tls.certresolver=letsencrypt"
+      traefik.enable: "true"
+      traefik.docker.network: "proxy"
+      traefik.http.routers.linkding.entrypoints: "websecure"
+      traefik.http.routers.linkding.tls: "true"
+      traefik.http.routers.linkding.tls.certresolver: "letsencrypt"
+      traefik.http.routers.linkding.rule: "Host(`isitfriday.qrogle.net`)"
+      com.centurylinklabs.watchtower.enable: "true"
     networks:
       - proxy
 
