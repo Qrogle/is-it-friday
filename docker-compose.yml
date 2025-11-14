@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  is-it-friday:
+    image: ghcr.io/Qrogle/is-it-friday:latest
+    container_name: is-it-friday
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.isitfriday.rule=Host(`isitfriday.qrogle.net`)"
+      - "traefik.http.routers.isitfriday.entrypoints=websecure"
+      - "traefik.http.routers.isitfriday.tls.certresolver=letsencrypt"
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
