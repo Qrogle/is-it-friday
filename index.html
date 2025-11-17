@@ -102,13 +102,8 @@
       img.src = "sad-meme.jpg"; // 👉 drop your own sad meme image in the same folder
       img.alt = "Sad meme waiting for Friday";
 
-      const hintEl = document.createElement("p");
-      hintEl.className = "small";
-      hintEl.textContent = "Tip: replace sad-meme.jpg with your favorite sad meme.";
-
       contentEl.appendChild(quoteEl);
       contentEl.appendChild(img);
-      contentEl.appendChild(hintEl);
     } else {
       // FRIDAY \o/
       answerEl.textContent = "YES!";
